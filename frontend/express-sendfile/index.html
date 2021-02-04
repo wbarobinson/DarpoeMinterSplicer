@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Web 3 Demo</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <!-- Grab Metamask -->
+    <script src="https://unpkg.com/@metamask/detect-provider/dist/detect-provider.min.js"></script>
+    <!-- Grab Ethersjs -->
+    <script src="https://cdn.ethers.io/lib/ethers-5.0.umd.min.js"
+        type="application/javascript"></script>
+    <script type="text/javascript">
+      const provider = new ethers.providers.Web3Provider(window.ethereum)
+      const signer = provider.getSigner()
+      // Look up the current block number
+      
+
+
+    </script> 
+
+</head>
+
+<body>
+
+    Darwinian Poetry
+    <br >
+    <button id="poemA" onclick="getPoemA();">PoemA</button>
+    <button id="poemB" onclick="selectPoemB();">PoemB</button>
+    <button class="enableEthereumButton">Enable Ethereum</button>
+    <div>Current Block Number Is: <span id="blockNumber"></span></div>
+</body>
+    <script type="text/javascript">
+        //This is to get Metamask connected
+        const ethereumButton = document.querySelector('.enableEthereumButton');
+        ethereumButton.addEventListener('click', () => {
+        //Will Start the metamask extension
+        ethereum.request({ method: 'eth_requestAccounts' });
+        });
+        async function getBlockNumber() {
+        var blockNumber = await provider.getBlockNumber()
+        document.getElementById("blockNumber").innerHTML = blockNumber;
+        }
+        getBlockNumber();
+        const darpoeAddress = "0x86A4f26dBc0b883A216c27630Df3214F5d7BF71e";
+        const darpoeAbi = [{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"rejectedPoemId","type":"uint256"},{"indexed":false,"internalType":"bytes32","name":"newPoem","type":"bytes32"}],"name":"LogNewPoem","type":"event"},{"inputs":[],"name":"BATCHSIZE","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAXPOEMS","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAXROUNDS","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAXVOTES","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"generatePoems","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"id","type":"uint256"}],"name":"getPoem","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getPoems","outputs":[{"internalType":"bytes32[1000]","name":"","type":"bytes32[1000]"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getTotalVotes","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getTwoPoems","outputs":[{"internalType":"uint256","name":"IDofFirstPoem","type":"uint256"},{"internalType":"bytes32","name":"poemA","type":"bytes32"},{"internalType":"uint256","name":"IDofSecondPoem","type":"uint256"},{"internalType":"bytes32","name":"poemB","type":"bytes32"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_address","type":"address"}],"name":"getVoteBalance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"poems","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"roundCounter","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_selectedPoemId","type":"uint256"},{"internalType":"uint256","name":"_rejectedPoemId","type":"uint256"}],"name":"selectPoem","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"totalVotes","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"voteBalance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}];
+        const darpoeContract = new ethers.Contract(darpoeAddress, darpoeAbi, provider);
+        async function getPoemA() {
+        document.getElementById("poemA").innerHTML = await darpoeContract.getPoem(2);
+        }
+    </script>
+</html>
