@@ -38,11 +38,10 @@
     <button id="poemA" onclick="selectPoemA();"></button>
     <button id="poemB" onclick="selectPoemB();"></button>
 
-    <!-- Button to randomly pick two poems-->
+    <!-- Button to randomly pick two poems
     <button id="getTwoPoems" onclick="getTwoPoems();">Get Two Poems</button>
+    -->
 
-    <!-- Button to connect to metamask-->
-    <button class="enableEthereumButton">Enable Ethereum</button>
 
     <!-- Ask contract for vote balance-->
     <div>Current Vote Balance Is: <span id="voteBalance"></span></div>
@@ -52,8 +51,11 @@
         <label for="lname">Poem to View:</label><br>
         <input type="text" id="lname" name="lname">
     </form>
-    <button id="getPoem" onclick="getPoem();">Poem to View</button>
-    <div>Here is the poem you are looking for: <span id="poemOnView"></span></div>
+    <button id="getPoem" onclick="getPoem();">Submit</button>
+    <div>Here is the poem you are looking for: <br><span id="poemOnView"></span></div>
+    <!-- Button to connect to metamask-->
+    <br>
+    <button class="enableEthereumButton">Enable Ethereum</button>
 </body>
     <script type="text/javascript">
         //This is to get Metamask connected
@@ -98,13 +100,15 @@
         var textForButtonB = `${poemBIndex}: ${poemBParsed}`;
         document.getElementById("poemB").innerHTML = textForButtonB;
         } */
+        var poemAIndex;
+        var poemBIndex
         async function getTwoPoems() {
-        var poemAIndex = Math.floor(Math.random() * 1000);
+        poemAIndex = Math.floor(Math.random() * 1000);
         var poemA = await darpoeContract.getPoem(poemAIndex);
         var poemAParsed = renderPoem(poemA);
         var textForButtonA = `${poemAIndex}: ${poemAParsed}`;
         document.getElementById("poemA").innerHTML = textForButtonA;
-        var poemBIndex = Math.floor(Math.random() * 1000);
+        poemBIndex = Math.floor(Math.random() * 1000);
         var poemB = await darpoeContract.getPoem(poemBIndex);
         var poemBParsed = renderPoem(poemB);
         var textForButtonB = `${poemBIndex}: ${poemBParsed}`;
