@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "C:\\Users\\wbaro\\DarpoeMinterSplicer\\contracts\\DarpoeMinterSplicer.sol": {
-      "lastModificationDate": 1612537148914,
-      "contentHash": "9393d11ad98fbcaaaea8cf9ba4ae514d",
+      "lastModificationDate": 1612537624679,
+      "contentHash": "40d005b3a7297f5f4dc45aceaf6fba0b",
       "sourceName": "contracts/DarpoeMinterSplicer.sol",
       "solcConfig": {
         "version": "0.7.3",

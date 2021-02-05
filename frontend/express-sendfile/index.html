@@ -37,8 +37,8 @@
     "In all likelihood . . . both (will) be abysmal pieces of nonsensical garbage. That's ok. All you have to do is read them both and pick the one you find more appealing, for whatever reason. Your decision might be based on a single word that you happen to like. It doesn't matter. Just pick whichever one strikes your fancy."
 - David Rea
     <br >
-    <!-- THIS IS ONLY NEEDED TO SEED THE CONTRACT
-        <button id="generatePoems" onclick="generatePoems();">Generate Poems</button> -->
+    <!-- THIS IS ONLY NEEDED TO SEED THE CONTRACT -->
+        <button id="generatePoems" onclick="generatePoems();">Generate Poems</button>
     <!-- Buttons to select one poem over another-->
     <button id="poemA" onclick="selectPoemA();"></button>
     <button id="poemB" onclick="selectPoemB();"></button>
@@ -81,8 +81,233 @@
         ethereum.request({ method: 'eth_requestAccounts' });
         });
         //Setup to connect to contract on Ropsten
-        const darpoeAddress = "0x86A4f26dBc0b883A216c27630Df3214F5d7BF71e";
-        const darpoeAbi = [{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"rejectedPoemId","type":"uint256"},{"indexed":false,"internalType":"bytes32","name":"newPoem","type":"bytes32"}],"name":"LogNewPoem","type":"event"},{"inputs":[],"name":"BATCHSIZE","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAXPOEMS","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAXROUNDS","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"MAXVOTES","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"generatePoems","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"id","type":"uint256"}],"name":"getPoem","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getPoems","outputs":[{"internalType":"bytes32[1000]","name":"","type":"bytes32[1000]"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getTotalVotes","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getTwoPoems","outputs":[{"internalType":"uint256","name":"IDofFirstPoem","type":"uint256"},{"internalType":"bytes32","name":"poemA","type":"bytes32"},{"internalType":"uint256","name":"IDofSecondPoem","type":"uint256"},{"internalType":"bytes32","name":"poemB","type":"bytes32"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_address","type":"address"}],"name":"getVoteBalance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"poems","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"roundCounter","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_selectedPoemId","type":"uint256"},{"internalType":"uint256","name":"_rejectedPoemId","type":"uint256"}],"name":"selectPoem","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"totalVotes","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"voteBalance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}];
+        const darpoeAddress = "0xbe58e1b613d3698bbe80495432e9a26d459a9816";
+        const darpoeAbi = [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "rejectedPoemId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "newPoem",
+          "type": "bytes32"
+        }
+      ],
+      "name": "MintNewPoem",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "BATCHSIZE",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "MAXPOEMS",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "MAXROUNDS",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "MAXVOTES",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "generatePoems",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        }
+      ],
+      "name": "getPoem",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getPoems",
+      "outputs": [
+        {
+          "internalType": "bytes32[1000]",
+          "name": "",
+          "type": "bytes32[1000]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getTotalVotes",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_address",
+          "type": "address"
+        }
+      ],
+      "name": "getVoteBalance",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "poems",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "roundCounter",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_selectedPoemId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_rejectedPoemId",
+          "type": "uint256"
+        }
+      ],
+      "name": "selectPoem",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "totalVotes",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "voteBalance",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ];
         const darpoeContract = new ethers.Contract(darpoeAddress, darpoeAbi, provider);
         const darpoeWithSigner = darpoeContract.connect(signer);
 
