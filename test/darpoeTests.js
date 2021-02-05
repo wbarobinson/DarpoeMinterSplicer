@@ -13,11 +13,14 @@ const { ethers } = require("hardhat");
     await dms.generatePoems();
     await dms.generatePoems();
     await dms.generatePoems();
+    const arr = await dms.getPoems();
+    console.log(arr[1000])
     await expect(dms.generatePoems()).to.be.revertedWith("Max poems have been reached");
 
-    const arr = await dms.getPoems();
+    
     expect(Object.keys(arr)).to.have.lengthOf(1000);
     console.log(arr.length);
+    console.log(arr[1000])
   });
 
     //TEST 2 - Rejecting a poem should mean that it wont be there anymore
@@ -73,16 +76,4 @@ const { ethers } = require("hardhat");
     //await expect(dms.selectPoem(1,2)).to.be.revertedWith("Max votes have been cast")
   }); */
   
-    //TEST 5 - Getting a poem with the function should work
-  //Ensure that poems are gettable
-  it("should get a poem and get two poems", async () => {
-    const DMS = await ethers.getContractFactory("DarpoeMinterSplicer"); 
-    const dms = await DMS.deploy();
-
-    await dms.deployed();
-    await dms.generatePoems();
-
-    console.log(await dms.getPoem(1));
-    console.log(await dms.getTwoPoems());
-  }); 
 });

@@ -10,5 +10,11 @@ var path = require('path');
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname + '/index.html'));
 });
+app.get('/dictionary.json', function(req, res) {
+    res.sendFile(path.join(__dirname + '/dictionary.json'));
+});
+app.get('/poems.json', function(req, res) {
+    res.sendFile(path.join(__dirname + '/poems.json'));
+});
 
 app.listen(8080);

@@ -3,6 +3,8 @@
     1. Make metamask connect button disappear when Metamask is connected
     2. Remove function getTwoPoems from smart contract
     3. Make site beautiful
+    4. Show All Poems button should become hide all poems after it is used
+    5. relaunch new smart contract and update ABI/ADDRESS
 
 
 
@@ -31,6 +33,9 @@
 
 <body>
     Darwinian Poetry
+    <br>
+    "In all likelihood . . . both (will) be abysmal pieces of nonsensical garbage. That's ok. All you have to do is read them both and pick the one you find more appealing, for whatever reason. Your decision might be based on a single word that you happen to like. It doesn't matter. Just pick whichever one strikes your fancy."
+- David Rea
     <br >
     <!-- THIS IS ONLY NEEDED TO SEED THE CONTRACT
         <button id="generatePoems" onclick="generatePoems();">Generate Poems</button> -->
@@ -44,8 +49,11 @@
 
 
     <!-- Ask contract for vote balance-->
-    <div>Current Vote Balance Is: <span id="voteBalance"></span></div>
-
+    <div>You have voted <span id="voteBalance"></span> times.</div>
+    
+    <!-- Ask contract for vote balance-->
+    <div>The community has voted <span id="totalVotes"></span> times.</div>
+    
     <!-- Form to request a poem to find and button to then get it-->
     <form>
         <label for="lname">Poem to View:</label><br>
@@ -53,8 +61,16 @@
     </form>
     <button id="getPoem" onclick="getPoem();">Submit</button>
     <div>Here is the poem you are looking for: <br><span id="poemOnView"></span></div>
-    <!-- Button to connect to metamask-->
+    
     <br>
+    <!-- Button to download dictionary-->
+    <button type="submit" onclick="window.open('dictionary.json')">Dictionary Download</button>
+    <br>
+    <!-- Button to view all poems, but this should be turned into a download like for the dictionary-->
+    <button onclick="getPoems();">All poems</button>
+    <div>Here are all of the poems:<br> <span id="getPoems"></span></div>
+    <br>
+    <!-- Button to connect to metamask-->
     <button class="enableEthereumButton">Enable Ethereum</button>
 </body>
     <script type="text/javascript">
@@ -78,6 +94,25 @@
         }
         getVoteBalance();
 
+        //Report total votes
+        async function getTotalVotes() {
+        var totalVotes = await darpoeContract.getTotalVotes();
+        document.getElementById("totalVotes").innerHTML = totalVotes;
+        }
+        getTotalVotes();
+
+        //Get all poems
+        async function getPoems() {
+        var poems = await darpoeContract.getPoems();
+        var poemsParsed = [];
+        for (var i = 0; i < poems.length; i++) {
+            poemsParsed.push("Poem " + i + ":", renderPoem(poems[i]));
+        }
+        var poemsJoined = poemsParsed.join("\r<br>");
+            console.log(poemsJoined);   
+        document.getElementById("getPoems").innerHTML = poemsJoined;
+        }
+
         //Poem to view code
         var poemOnView;
         async function getPoem() {
@@ -86,20 +121,7 @@
         document.getElementById("poemOnView").innerHTML = poemOnView;
         }
 
-        //Function for getting two poems
-/*         async function getTwoPoems() {
-        var twoPoems = await darpoeContract.getTwoPoems();
-        poemAIndex = parseInt(twoPoems[0]._hex, 16);
-        var poemA = twoPoems[1];
-        var poemAParsed = renderPoem(poemA);
-        var textForButtonA = `${poemAIndex}: ${poemAParsed}`;
-        document.getElementById("poemA").innerHTML = textForButtonA;
-        poemBIndex = parseInt(twoPoems[2]._hex, 16);
-        var poemB = twoPoems[3];
-        var poemBParsed = renderPoem(poemB);
-        var textForButtonB = `${poemBIndex}: ${poemBParsed}`;
-        document.getElementById("poemB").innerHTML = textForButtonB;
-        } */
+        //Function for getting two poems. This used to use contract code, but it was a bad idea.
         var poemAIndex;
         var poemBIndex
         async function getTwoPoems() {
@@ -114,8 +136,6 @@
         var textForButtonB = `${poemBIndex}: ${poemBParsed}`;
         document.getElementById("poemB").innerHTML = textForButtonB;
         }
-
-
 
 
         //Function to get two poems

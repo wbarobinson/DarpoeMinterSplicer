@@ -7,7 +7,6 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
 contract DarpoeMinterSplicer {
     using SafeMath for uint256;
     using SafeMath for uint;
-    using SafeMath for uint8;
     //The maximum number of poems
     uint constant public MAXPOEMS = 1000;
     //Generation rounds counter (there will be 4, because 1 round is too big for Ethereum to handle)
@@ -55,7 +54,7 @@ contract DarpoeMinterSplicer {
     function selectPoem(uint _selectedPoemId, uint _rejectedPoemId) public {
         require(_selectedPoemId >= 0 && _selectedPoemId < MAXPOEMS && _rejectedPoemId >= 0 && _rejectedPoemId < MAXPOEMS && _selectedPoemId != _rejectedPoemId);
         require(totalVotes <= MAXVOTES, "Max votes have been cast");
-        bytes32 newPoem = evolvePoem(_selectedPoemId);
+        bytes32 newPoem = evolvePoem(_selectedPoemId, _rejectedPoemId);
         poems[_rejectedPoemId] = newPoem;
         voteBalance[msg.sender] = voteBalance[msg.sender] + 1;
         totalVotes++;
@@ -87,27 +86,12 @@ contract DarpoeMinterSplicer {
     function getPoem(uint id) view public returns (bytes32) {
         return poems[id];
     }
-    /*
-     * A function to get two different arbitrary poems
-     * @returns two poems and their indices
-    */
-    function getTwoPoems() view public returns (uint IDofFirstPoem, bytes32 poemA, uint IDofSecondPoem, bytes32 poemB) {
-        //Get one arbitrary poem ID using timestamp
-        uint arbitraryPoem1 = uint(block.timestamp.mod(MAXPOEMS));
-        uint arbitraryPoem2 = uint(block.number.mod(MAXPOEMS));
-        //Make sure second arbitrary poem ID using block height is difference from arbitraryPoem1
-        if(arbitraryPoem1 == arbitraryPoem2) {
-        arbitraryPoem2++;
-        }
-        return (arbitraryPoem1, poems[arbitraryPoem1], arbitraryPoem2, poems[arbitraryPoem2]);
-    }
      /*
      * An internal function to get the splice of two poems
      * @returns one new poem
     */   
-    function evolvePoem(uint _selectedPoemId) internal view returns (bytes32) {
-        //Get an arbitrary number
-        uint arbitraryMate = uint(block.timestamp.mod(MAXPOEMS));
+    function evolvePoem(uint _selectedPoemId, uint _rejectedPoemId) internal view returns (bytes32) {
+
         //Move the mask to pick a random 128 contiguous bits
         uint arbitraryGeneShare = uint(block.timestamp.mod(128));
         //Move the mask
@@ -117,7 +101,7 @@ contract DarpoeMinterSplicer {
         //Mask selected poem to keep half
         bytes32 keep1 = poems[_selectedPoemId] & tempMask1;
         //Mask arbitrary poem to keep opposite half
-        bytes32 keep2 = poems[arbitraryMate] & tempMask2;
+        bytes32 keep2 = poems[_rejectedPoemId] & tempMask2;
         //Merge poems by masking one with the other
         bytes32 evolvedPoem = keep1 | keep2;
 
