@@ -1,5 +1,6 @@
 //A simple server for pushing index.html to localhost
 //Without this, metamask wont connect
+//node server.js to start serving
 
 var express = require('express');
 var app = express();
