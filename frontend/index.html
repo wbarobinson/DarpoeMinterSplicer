@@ -5,16 +5,15 @@
     3. Make site beautiful
     4. Show All Poems button should become hide all poems after it is used
     5. relaunch new smart contract and update ABI/ADDRESS
-
-
-
 -->
 <html>
-
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Web 3 Demo</title>
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;lang=en" />
+    <link rel="stylesheet" type="text/css" href="index.css">
+
+    <title>Darwinian Poetry</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <!-- Grab Metamask -->
     <script src="https://unpkg.com/@metamask/detect-provider/dist/detect-provider.min.js"></script>
@@ -32,17 +31,20 @@
 </head>
 
 <body>
-    Darwinian Poetry
+    <div class="page">
     <br>
-    "In all likelihood . . . both (will) be abysmal pieces of nonsensical garbage. That's ok. All you have to do is read them both and pick the one you find more appealing, for whatever reason. Your decision might be based on a single word that you happen to like. It doesn't matter. Just pick whichever one strikes your fancy."
-- David Rea
+    <div class="title"><h1>Darwinian Poetry</h1></div>
+    
+    <div class="introText">
+    "In all likelihood . . . both (will) be abysmal pieces of nonsensical garbage. That's ok. All you have to do is read them both and pick the one you find more appealing, for whatever reason. Your decision might be based on a single word that you happen to like. It doesn't matter. Just pick whichever one strikes your fancy." <br>- David Rea</div>
     <br >
-    <!-- THIS IS ONLY NEEDED TO SEED THE CONTRACT -->
-        <button id="generatePoems" onclick="generatePoems();">Generate Poems</button>
+    <!-- THIS IS ONLY NEEDED TO SEED THE CONTRACT 
+        <button id="generatePoems" onclick="generatePoems();">Generate Poems</button> -->
     <!-- Buttons to select one poem over another-->
-    <button id="poemA" onclick="selectPoemA();"></button>
-    <button id="poemB" onclick="selectPoemB();"></button>
-
+    <div id="poemSelectors">
+    <button class="button"  onclick="selectPoemA();"><span class="poemId" id="poemAId"></span><br><br><span class="poem" id="poemA"></span></button>
+    <button class="button"  onclick="selectPoemB();"><span class="poemId" id="poemBId"></span><br><br><span class="poem" id="poemB"></span></button>
+    </div>
     <!-- Button to randomly pick two poems
     <button id="getTwoPoems" onclick="getTwoPoems();">Get Two Poems</button>
     -->
@@ -57,7 +59,7 @@
     <!-- Form to request a poem to find and button to then get it-->
     <form>
         <label for="lname">Poem to View:</label><br>
-        <input type="text" id="lname" name="lname">
+        <input type="text" id="poemId" name="poemId">
     </form>
     <button id="getPoem" onclick="getPoem();">Submit</button>
     <div>Here is the poem you are looking for: <br><span id="poemOnView"></span></div>
@@ -72,6 +74,7 @@
     <br>
     <!-- Button to connect to metamask-->
     <button class="enableEthereumButton">Enable Ethereum</button>
+    </div>
 </body>
     <script type="text/javascript">
         //This is to get Metamask connected
@@ -82,232 +85,7 @@
         });
         //Setup to connect to contract on Ropsten
         const darpoeAddress = "0xbe58e1b613d3698bbe80495432e9a26d459a9816";
-        const darpoeAbi = [
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "rejectedPoemId",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "bytes32",
-          "name": "newPoem",
-          "type": "bytes32"
-        }
-      ],
-      "name": "MintNewPoem",
-      "type": "event"
-    },
-    {
-      "inputs": [],
-      "name": "BATCHSIZE",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "MAXPOEMS",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "MAXROUNDS",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "MAXVOTES",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "generatePoems",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "id",
-          "type": "uint256"
-        }
-      ],
-      "name": "getPoem",
-      "outputs": [
-        {
-          "internalType": "bytes32",
-          "name": "",
-          "type": "bytes32"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "getPoems",
-      "outputs": [
-        {
-          "internalType": "bytes32[1000]",
-          "name": "",
-          "type": "bytes32[1000]"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "getTotalVotes",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_address",
-          "type": "address"
-        }
-      ],
-      "name": "getVoteBalance",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "name": "poems",
-      "outputs": [
-        {
-          "internalType": "bytes32",
-          "name": "",
-          "type": "bytes32"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "roundCounter",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "_selectedPoemId",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_rejectedPoemId",
-          "type": "uint256"
-        }
-      ],
-      "name": "selectPoem",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "totalVotes",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "voteBalance",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    }
-  ];
+        const darpoeAbi = [ { "anonymous": false, "inputs": [ { "indexed": false, "internalType": "uint256", "name": "rejectedPoemId", "type": "uint256" }, { "indexed": false, "internalType": "bytes32", "name": "newPoem", "type": "bytes32" } ], "name": "MintNewPoem", "type": "event" }, { "inputs": [], "name": "BATCHSIZE", "outputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "MAXPOEMS", "outputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "MAXROUNDS", "outputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "MAXVOTES", "outputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "generatePoems", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [ { "internalType": "uint256", "name": "id", "type": "uint256" } ], "name": "getPoem", "outputs": [ { "internalType": "bytes32", "name": "", "type": "bytes32" } ], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "getPoems", "outputs": [ { "internalType": "bytes32[1000]", "name": "", "type": "bytes32[1000]" } ], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "getTotalVotes", "outputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "stateMutability": "view", "type": "function" }, { "inputs": [ { "internalType": "address", "name": "_address", "type": "address" } ], "name": "getVoteBalance", "outputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "stateMutability": "view", "type": "function" }, { "inputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "name": "poems", "outputs": [ { "internalType": "bytes32", "name": "", "type": "bytes32" } ], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "roundCounter", "outputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "stateMutability": "view", "type": "function" }, { "inputs": [ { "internalType": "uint256", "name": "_selectedPoemId", "type": "uint256" }, { "internalType": "uint256", "name": "_rejectedPoemId", "type": "uint256" } ], "name": "selectPoem", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "totalVotes", "outputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "stateMutability": "view", "type": "function" }, { "inputs": [ { "internalType": "address", "name": "", "type": "address" } ], "name": "voteBalance", "outputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "stateMutability": "view", "type": "function" }];
         const darpoeContract = new ethers.Contract(darpoeAddress, darpoeAbi, provider);
         const darpoeWithSigner = darpoeContract.connect(signer);
 
@@ -341,7 +119,7 @@
         //Poem to view code
         var poemOnView;
         async function getPoem() {
-        var poemId=document.getElementById('lname').value;
+        var poemId=document.getElementById('poemId').value;
         var poemOnView = renderPoem(await darpoeContract.getPoem(poemId));
         document.getElementById("poemOnView").innerHTML = poemOnView;
         }
@@ -353,13 +131,13 @@
         poemAIndex = Math.floor(Math.random() * 1000);
         var poemA = await darpoeContract.getPoem(poemAIndex);
         var poemAParsed = renderPoem(poemA);
-        var textForButtonA = `${poemAIndex}: ${poemAParsed}`;
-        document.getElementById("poemA").innerHTML = textForButtonA;
+        document.getElementById("poemAId").innerHTML = "Poem " + poemAIndex;
+        document.getElementById("poemA").innerHTML = poemAParsed;
         poemBIndex = Math.floor(Math.random() * 1000);
         var poemB = await darpoeContract.getPoem(poemBIndex);
         var poemBParsed = renderPoem(poemB);
-        var textForButtonB = `${poemBIndex}: ${poemBParsed}`;
-        document.getElementById("poemB").innerHTML = textForButtonB;
+        document.getElementById("poemBId").innerHTML = "Poem " + poemBIndex;
+        document.getElementById("poemB").innerHTML = poemBParsed;
         }
 
 

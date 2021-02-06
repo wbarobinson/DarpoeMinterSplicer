@@ -1,0 +1,51 @@
+
+
+.button {
+    width:30%;
+    height:400px;
+    padding:25px;
+    margin: 30px;
+    background-color: white;
+    border-radius: 10px;
+    border-width:1px;
+    box-shadow:  0 1px 1px rgba(0,0,0,0.11), 
+    0 2px 2px rgba(0,0,0,0.11), 
+    0 4px 4px rgba(0,0,0,0.11), 
+    0 8px 8px rgba(0,0,0,0.11), 
+    0 16px 16px rgba(0,0,0,0.11), 
+    0 32px 32px rgba(0,0,0,0.11);
+    font-size:25px;
+    text-align:left;
+    vertical-align:top;
+    font-family: 'Open Sans', serif;
+}
+
+#poemSelectors {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.page {
+    margin-left:10%;
+    margin-right:10%;
+}
+
+.title {
+    text-align:center;
+    font-family: 'Open Sans', serif;
+}
+
+.introText {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align:center;
+    font-family: 'Open Sans', serif;
+    max-width:60%;
+    margin-left:20%;
+    margin-right:20%;
+}
+
+.poemId {
+    text-align:center;
+}
