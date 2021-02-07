@@ -1,10 +1,10 @@
 
 
 .button {
-    width:30%;
-    height:400px;
+    width:600px;
+    min-height:400px;
     padding:25px;
-    margin: 30px;
+    margin: 1%;
     background-color: white;
     border-radius: 10px;
     border-width:1px;
@@ -26,8 +26,8 @@
     align-items: center;
 }
 .page {
-    margin-left:10%;
-    margin-right:10%;
+    margin-left:2%;
+    margin-right:2%;    
 }
 
 .title {
@@ -41,9 +41,9 @@
     align-items: center;
     text-align:center;
     font-family: 'Open Sans', serif;
-    max-width:60%;
-    margin-left:20%;
-    margin-right:20%;
+    max-width:80%;
+    margin-left:10%;
+    margin-right:10%;
 }
 
 .poemId {
