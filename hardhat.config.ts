@@ -55,7 +55,7 @@ let hardhatCfg: any = {
   chainId: chainIds.hardhat,
 }
 
-if (alchemyApiKey) {
+if (process.env.FORK) {
   hardhatCfg.forking = {
     url: `https://eth-mainnet.alchemyapi.io/v2/${alchemyApiKey}`,
   }
