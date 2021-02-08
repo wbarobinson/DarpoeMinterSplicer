@@ -3,3 +3,5 @@ artifacts/
 cache/
 typechain/
 yarn-error.log
+coverage/
+coverage.json

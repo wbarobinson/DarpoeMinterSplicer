@@ -18,12 +18,13 @@ describe("DarpoeMinterSplicer", function () {
     user = signers[0];
   });
 
+  const MAXPOEMS = 1000;
+  const MAXVOTES = 100000;
+
   beforeEach(async () => {
-    dms = (await deployContract(
-      user,
-      DMSArtifact,
-      []
-    )) as types.DarpoeMinterSplicer;
+    dms = (await deployContract(user, DMSArtifact, [
+      MAXVOTES,
+    ])) as types.DarpoeMinterSplicer;
   });
 
   it("Should create MAXPOEMS and only four times", async () => {
@@ -32,7 +33,7 @@ describe("DarpoeMinterSplicer", function () {
     await dms.generatePoems();
     await dms.generatePoems();
     const arr = await dms.getPoems();
-    expect(arr.length).to.be.eq(1000);
+    expect(arr.length).to.be.eq(MAXPOEMS);
     await expect(dms.generatePoems()).to.be.revertedWith(
       "Max poems have been reached"
     );
@@ -67,17 +68,19 @@ describe("DarpoeMinterSplicer", function () {
   // TEST 4 - Selecting a poem should be impossible once MAXVOTES have been cast
   // Ensure that get poems are no longer overwritten after a certain number of overwrites
   it("should stop votes from voting after MAXVOTES are cast", async () => {
-    const MAXVOTES = 100;
+    const maxVotes = 100;
+    dms = (await deployContract(user, DMSArtifact, [
+      maxVotes,
+    ])) as types.DarpoeMinterSplicer;
     await dms.generatePoems();
 
-    for (let i = 0; i < MAXVOTES; i++) {
+    for (let i = 0; i < maxVotes; i++) {
       await dms.selectPoem(1, 2);
     }
 
-    expect(await dms.getTotalVotes()).to.equal(MAXVOTES);
-    // This part of the test only works if you set MAXVOTES to a smaller number in the contract for testing.
-    // await expect(dms.selectPoem(1, 2)).to.be.revertedWith(
-    //   "Max votes have been cast"
-    // );
+    expect(await dms.getTotalVotes()).to.equal(maxVotes);
+    await expect(dms.selectPoem(1, 2)).to.be.revertedWith(
+      "Max votes have been cast"
+    );
   });
 });
