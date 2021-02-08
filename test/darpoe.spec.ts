@@ -66,7 +66,7 @@ describe("DarpoeMinterSplicer", function () {
 
   // TEST 4 - Selecting a poem should be impossible once MAXVOTES have been cast
   // Ensure that get poems are no longer overwritten after a certain number of overwrites
-  it.only("should stop votes from voting after MAXVOTES are cast", async () => {
+  it("should stop votes from voting after MAXVOTES are cast", async () => {
     const MAXVOTES = 100;
     await dms.generatePoems();
 

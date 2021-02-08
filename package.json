@@ -6,6 +6,7 @@
   "scripts": {
     "compile": "npx hardhat compile",
     "test": "npx hardhat test",
+    "coverage": "npx hardhat coverage",
     "lint": "prettier ./test/**/*.ts --check",
     "lint:ts": "prettier ./test/**/*.ts --write",
     "lint:sol": "solhint -f table contracts/**/*.sol",
