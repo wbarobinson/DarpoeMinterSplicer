@@ -70,7 +70,7 @@
         <button id="generatePoems" onclick="generatePoems();">Generate Poems</button> -->
     <!-- Buttons to select one poem over another-->
     <div id="poemSelectors">
-    <button class="poembutton"  onclick="selectPoemA();"><span class="poemId" id="poemAId"></span><br><br><span class="poem" id="poemA"></span></button>
+    <button class="poembutton" onclick="selectPoemA();"><span class="poemId" id="poemAId"></span><br><br><span class="poem" id="poemA"></span></button>
     <button class="poembutton"  onclick="selectPoemB();"><span class="poemId" id="poemBId"></span><br><br><span class="poem" id="poemB"></span></button>
     </div>
     <!-- Button to randomly pick two poems
@@ -79,10 +79,15 @@
 
 
     <!-- Ask contract for vote balance-->
-    <div>You have voted <span id="voteBalance"></span> times.</div>
+    <div id="voteTally">
+
+    <div id="yourvote">You have voted <span id="voteBalance"></span> times</div>
 
     <!-- Ask contract for vote balance-->
-    <div>The community has voted <span id="totalVotes"></span> times.</div>
+    <div id="allvote">The community has voted <span id="totalVotes"></span> times</div>
+  </div>
+
+
     <button class="enableEthereumButton">Enable Ethereum</button>
     </div>
 </body>
