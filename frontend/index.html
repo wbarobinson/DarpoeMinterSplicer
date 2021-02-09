@@ -55,19 +55,17 @@
     but hey, it's pure CSS magic.
     -->
     <ul id="menu">
-      <h4 href="#"><li>Home</li></h4>
-      <h4 href="#"><li>About</li></h4>
-      <h4 href="#"><li>List of current Poems</li></h4>
-      <h4 href="#"><li>The Dictionary</li></h4>
+      <a class="dropdown" href="/"><li>Home</li></a>
+      <a class="dropdown" href="/about.html"><li>About</li></a>
+      <a class="dropdown" href="/poems.html"><li>List of current Poems</li></a>
+      <a class="dropdown" href="/dictionary.html"><li>The Dictionary</li></a>
     </ul>
   </div>
   <div class="title"><h1>DARWINIAN POETRY</h1></div>
 </nav>
     </div>
     <div class="page">
-
-    <div class="introText">
-         "in all likelihood . . . both be abysmal pieces of nonsensical garbage. That's ok. All you have to do is read them both and pick the one you find more appealing, for whatever reason. Your decision might be based on a single word that you happen to like. It doesn't matter. Just pick whichever one strikes your fancy." <br><br>- David Rea</div>
+        <div class="spacer"></div>
     <!-- THIS IS ONLY NEEDED TO SEED THE CONTRACT
         <button id="generatePoems" onclick="generatePoems();">Generate Poems</button> -->
     <!-- Buttons to select one poem over another-->
@@ -85,24 +83,6 @@
 
     <!-- Ask contract for vote balance-->
     <div>The community has voted <span id="totalVotes"></span> times.</div>
-
-    <!-- Form to request a poem to find and button to then get it-->
-    <form>
-        <label for="lname">Poem to View:</label><br>
-        <input type="text" id="poemId" name="poemId">
-    </form>
-    <button id="getPoem" onclick="getPoem();">Submit</button>
-    <div>Here is the poem you are looking for: <br><span id="poemOnView"></span></div>
-
-    <br>
-    <!-- Button to download dictionary-->
-    <button type="submit" onclick="window.open('dictionary.json')">Dictionary Download</button>
-    <br>
-    <!-- Button to view all poems, but this should be turned into a download like for the dictionary-->
-    <button onclick="getPoems();">All poems</button>
-    <div>Here are all of the poems:<br> <span id="getPoems"></span></div>
-    <br>
-    <!-- Button to connect to metamask-->
     <button class="enableEthereumButton">Enable Ethereum</button>
     </div>
 </body>

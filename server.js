@@ -10,6 +10,15 @@ var path = require('path');
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname + '/frontend/index.html'));
 });
+app.get('/about.html', function(req, res) {
+    res.sendFile(path.join(__dirname + '/frontend/about.html'));
+});
+app.get('/poems.html', function(req, res) {
+    res.sendFile(path.join(__dirname + '/frontend/poems.html'));
+});
+app.get('/dictionary.html', function(req, res) {
+    res.sendFile(path.join(__dirname + '/frontend/dictionary.html'));
+});
 app.get('/index.css', function(req, res) {
     res.sendFile(__dirname + "/" + "frontend/index.css");
 });
